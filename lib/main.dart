@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const AppPocketStudioApp());
 
-const _screenshotMode = String.fromEnvironment('APP_SCREENSHOT_MODE', defaultValue: 'home');
+const _screenshotMode = String.fromEnvironment(
+  'APP_SCREENSHOT_MODE',
+  defaultValue: 'home',
+);
 
 class AppPocketStudioApp extends StatelessWidget {
   const AppPocketStudioApp({super.key});
@@ -27,7 +30,9 @@ class AppPocketStudioApp extends StatelessWidget {
         cardTheme: CardThemeData(
           color: const Color(0xFF1D2325),
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
         ),
       ),
       home: const StudioShell(),
@@ -112,11 +117,18 @@ class HomePage extends StatelessWidget {
         caption: '12 capture cards • 3 need review',
         icon: Icons.bolt_rounded,
       ),
+      imageSlot: const VisualSlot(
+        assetPath: 'assets/visual_slots/home.png',
+        eyebrow: 'FIELD OPS',
+        title: 'Photo-backed overview',
+        caption: 'Hero image position for the daily status card.',
+      ),
       children: [
         const SectionHeader('Next action'),
         ActionCard(
           title: 'Upload boiler room photos',
-          body: 'Missing evidence for Site Visit #A14. Add three photos and mark safety risk.',
+          body:
+              'Missing evidence for Site Visit #A14. Add three photos and mark safety risk.',
           chip: '2 min',
           icon: Icons.photo_camera_rounded,
           color: const Color(0xFFD22C53),
@@ -148,7 +160,14 @@ class QuickAddPage extends StatelessWidget {
       hero: const BrandedHero(
         icon: Icons.add_task_rounded,
         title: '10-second capture',
-        body: 'Voice-style prompts, category chips, and one save CTA — local first.',
+        body:
+            'Voice-style prompts, category chips, and one save CTA — local first.',
+      ),
+      imageSlot: const VisualSlot(
+        assetPath: 'assets/visual_slots/quick_add.png',
+        eyebrow: 'CAPTURE',
+        title: 'Evidence image slot',
+        caption: 'Shows where attached photos or scene previews land.',
       ),
       children: [
         const SectionHeader('Primary input'),
@@ -158,7 +177,10 @@ class QuickAddPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Leak near west stairwell, photo attached, risk medium', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              const Text(
+                'Leak near west stairwell, photo attached, risk medium',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 14),
               Wrap(
                 spacing: 8,
@@ -171,7 +193,11 @@ class QuickAddPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 18),
-              FilledButton.icon(onPressed: () {}, icon: const Icon(Icons.save_rounded), label: const Text('Save capture card')),
+              FilledButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.save_rounded),
+                label: const Text('Save capture card'),
+              ),
             ],
           ),
         ),
@@ -189,6 +215,12 @@ class DetailReviewPage extends StatelessWidget {
       title: 'Detail Review',
       subtitle: 'Audit one item with notes, state, and history visible.',
       hero: const TimelineHero(),
+      imageSlot: const VisualSlot(
+        assetPath: 'assets/visual_slots/detail_review.png',
+        eyebrow: 'REVIEW',
+        title: 'Review visual proof',
+        caption: 'Before/after or evidence photos stay visible during audit.',
+      ),
       children: [
         const SectionHeader('Review card'),
         ActionCard(
@@ -201,7 +233,8 @@ class DetailReviewPage extends StatelessWidget {
         const SizedBox(height: 12),
         ActionCard(
           title: 'History',
-          body: 'Photo added → Risk set to medium → Export queued for weekly report.',
+          body:
+              'Photo added → Risk set to medium → Export queued for weekly report.',
           chip: '3 events',
           icon: Icons.history_rounded,
           color: const Color(0xFF25B05F),
@@ -225,6 +258,12 @@ class InsightsPage extends StatelessWidget {
         caption: 'Three high-priority cards remain before export.',
         icon: Icons.query_stats_rounded,
       ),
+      imageSlot: const VisualSlot(
+        assetPath: 'assets/visual_slots/insights.png',
+        eyebrow: 'INSIGHTS',
+        title: 'Trend visual panel',
+        caption: 'Chart/snapshot position for quick readback.',
+      ),
       children: const [
         SectionHeader('Trend readback'),
         InsightRow('Capture velocity', '32 cards/week', .82, Color(0xFF2298C3)),
@@ -246,7 +285,14 @@ class ExportSettingsPage extends StatelessWidget {
       hero: const BrandedHero(
         icon: Icons.lock_rounded,
         title: 'Local-first by default',
-        body: 'No account, no tracking, no regulated claims. Export CSV/PDF when the operator asks.',
+        body:
+            'No account, no tracking, no regulated claims. Export CSV/PDF when the operator asks.',
+      ),
+      imageSlot: const VisualSlot(
+        assetPath: 'assets/visual_slots/export_settings.png',
+        eyebrow: 'EXPORT',
+        title: 'Report preview image',
+        caption: 'Visual slot for generated packet covers and exports.',
       ),
       children: [
         const SectionHeader('Export options'),
@@ -271,10 +317,18 @@ class ExportSettingsPage extends StatelessWidget {
 }
 
 class StudioPage extends StatelessWidget {
-  const StudioPage({super.key, required this.title, required this.subtitle, required this.hero, required this.children});
+  const StudioPage({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.hero,
+    required this.imageSlot,
+    required this.children,
+  });
   final String title;
   final String subtitle;
   final Widget hero;
+  final Widget imageSlot;
   final List<Widget> children;
 
   @override
@@ -283,11 +337,27 @@ class StudioPage extends StatelessWidget {
       key: ValueKey(title),
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
       children: [
-        Text(title, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, letterSpacing: -.8)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -.8,
+          ),
+        ),
         const SizedBox(height: 6),
-        Text(subtitle, style: TextStyle(color: Colors.white.withValues(alpha: .68), fontSize: 15, height: 1.35)),
+        Text(
+          subtitle,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: .68),
+            fontSize: 15,
+            height: 1.35,
+          ),
+        ),
         const SizedBox(height: 20),
         hero,
+        const SizedBox(height: 14),
+        imageSlot,
         const SizedBox(height: 22),
         ...children,
       ],
@@ -295,8 +365,106 @@ class StudioPage extends StatelessWidget {
   }
 }
 
+class VisualSlot extends StatelessWidget {
+  const VisualSlot({
+    super.key,
+    required this.assetPath,
+    required this.eyebrow,
+    required this.title,
+    required this.caption,
+  });
+
+  final String assetPath;
+  final String eyebrow;
+  final String title;
+  final String caption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withValues(alpha: .10)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: .22),
+            blurRadius: 22,
+            offset: const Offset(0, 12),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.asset(assetPath, fit: BoxFit.cover),
+            ),
+            Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withValues(alpha: .62),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 16,
+              right: 16,
+              bottom: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    eyebrow,
+                    style: const TextStyle(
+                      color: Color(0xFF70BEDB),
+                      fontSize: 11,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    caption,
+                    style: TextStyle(
+                      color: Colors.white.withValues(alpha: .78),
+                      height: 1.25,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class MetricHero extends StatelessWidget {
-  const MetricHero({super.key, required this.label, required this.value, required this.caption, required this.icon});
+  const MetricHero({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.caption,
+    required this.icon,
+  });
   final String label;
   final String value;
   final String caption;
@@ -308,23 +476,58 @@ class MetricHero extends StatelessWidget {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
-        gradient: const LinearGradient(colors: [Color(0xFF136785), Color(0xFF2298C3), Color(0xFFD22C53)]),
-        boxShadow: [BoxShadow(color: const Color(0xFF2298C3).withValues(alpha: .24), blurRadius: 30, offset: const Offset(0, 18))],
+        gradient: const LinearGradient(
+          colors: [Color(0xFF136785), Color(0xFF2298C3), Color(0xFFD22C53)],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF2298C3).withValues(alpha: .24),
+            blurRadius: 30,
+            offset: const Offset(0, 18),
+          ),
+        ],
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Icon(icon, color: Colors.white, size: 32),
-        const SizedBox(height: 28),
-        Text(label, style: TextStyle(color: Colors.white.withValues(alpha: .78), fontWeight: FontWeight.w700)),
-        Text(value, style: const TextStyle(fontSize: 52, fontWeight: FontWeight.w900, height: 1)),
-        const SizedBox(height: 8),
-        Text(caption, style: TextStyle(color: Colors.white.withValues(alpha: .82), fontSize: 15)),
-      ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: Colors.white, size: 32),
+          const SizedBox(height: 28),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: .78),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 52,
+              fontWeight: FontWeight.w900,
+              height: 1,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            caption,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: .82),
+              fontSize: 15,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
 class BrandedHero extends StatelessWidget {
-  const BrandedHero({super.key, required this.icon, required this.title, required this.body});
+  const BrandedHero({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.body,
+  });
   final IconData icon;
   final String title;
   final String body;
@@ -336,17 +539,46 @@ class BrandedHero extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1D2325),
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0xFF70BEDB).withValues(alpha: .24)),
+        border: Border.all(
+          color: const Color(0xFF70BEDB).withValues(alpha: .24),
+        ),
       ),
-      child: Row(children: [
-        Container(width: 64, height: 64, decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2298C3)), child: Icon(icon, size: 34, color: Colors.white)),
-        const SizedBox(width: 16),
-        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
-          const SizedBox(height: 6),
-          Text(body, style: TextStyle(color: Colors.white.withValues(alpha: .7), height: 1.35)),
-        ])),
-      ]),
+      child: Row(
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFF2298C3),
+            ),
+            child: Icon(icon, size: 34, color: Colors.white),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  body,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: .7),
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -358,11 +590,13 @@ class TimelineHero extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: _panelDecoration(radius: 28),
-      child: Column(children: const [
-        TimelineStep('Captured', '14:08', true),
-        TimelineStep('Risk labeled', '14:11', true),
-        TimelineStep('Contractor assigned', 'Pending', false),
-      ]),
+      child: Column(
+        children: const [
+          TimelineStep('Captured', '14:08', true),
+          TimelineStep('Risk labeled', '14:11', true),
+          TimelineStep('Contractor assigned', 'Pending', false),
+        ],
+      ),
     );
   }
 }
@@ -376,12 +610,27 @@ class TimelineStep extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(children: [
-        Icon(done ? Icons.check_circle_rounded : Icons.radio_button_unchecked_rounded, color: done ? const Color(0xFF25B05F) : const Color(0xFFF29E0C)),
-        const SizedBox(width: 12),
-        Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w800))),
-        Text(time, style: TextStyle(color: Colors.white.withValues(alpha: .62))),
-      ]),
+      child: Row(
+        children: [
+          Icon(
+            done
+                ? Icons.check_circle_rounded
+                : Icons.radio_button_unchecked_rounded,
+            color: done ? const Color(0xFF25B05F) : const Color(0xFFF29E0C),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.w800),
+            ),
+          ),
+          Text(
+            time,
+            style: TextStyle(color: Colors.white.withValues(alpha: .62)),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -392,12 +641,26 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.only(bottom: 10),
-    child: Text(text, style: TextStyle(color: Colors.white.withValues(alpha: .62), fontWeight: FontWeight.w800, letterSpacing: .7)),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: Colors.white.withValues(alpha: .62),
+        fontWeight: FontWeight.w800,
+        letterSpacing: .7,
+      ),
+    ),
   );
 }
 
 class ActionCard extends StatelessWidget {
-  const ActionCard({super.key, required this.title, required this.body, required this.chip, required this.icon, required this.color});
+  const ActionCard({
+    super.key,
+    required this.title,
+    required this.body,
+    required this.chip,
+    required this.icon,
+    required this.color,
+  });
   final String title;
   final String body;
   final String chip;
@@ -408,15 +671,50 @@ class ActionCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: _panelDecoration(),
-      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Container(width: 46, height: 46, decoration: BoxDecoration(color: color.withValues(alpha: .18), borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: color)),
-        const SizedBox(width: 14),
-        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [Expanded(child: Text(title, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900))), CategoryChip(chip)]),
-          const SizedBox(height: 8),
-          Text(body, style: TextStyle(color: Colors.white.withValues(alpha: .68), height: 1.35)),
-        ])),
-      ]),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: .18),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(icon, color: color),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    CategoryChip(chip),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  body,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: .68),
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -427,8 +725,14 @@ class CategoryChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-    decoration: BoxDecoration(color: const Color(0xFF293032), borderRadius: BorderRadius.circular(999)),
-    child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800)),
+    decoration: BoxDecoration(
+      color: const Color(0xFF293032),
+      borderRadius: BorderRadius.circular(999),
+    ),
+    child: Text(
+      label,
+      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
+    ),
   );
 }
 
@@ -442,15 +746,37 @@ class StatusPill extends StatelessWidget {
     width: 104,
     padding: const EdgeInsets.all(14),
     decoration: _panelDecoration(),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(value, style: TextStyle(color: color, fontSize: 26, fontWeight: FontWeight.w900)),
-      Text(label, style: TextStyle(color: Colors.white.withValues(alpha: .68), fontWeight: FontWeight.w700)),
-    ]),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            color: color,
+            fontSize: 26,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: .68),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    ),
   );
 }
 
 class InsightRow extends StatelessWidget {
-  const InsightRow(this.label, this.value, this.progress, this.color, {super.key});
+  const InsightRow(
+    this.label,
+    this.value,
+    this.progress,
+    this.color, {
+    super.key,
+  });
   final String label;
   final String value;
   final double progress;
@@ -460,11 +786,35 @@ class InsightRow extends StatelessWidget {
     margin: const EdgeInsets.only(bottom: 12),
     padding: const EdgeInsets.all(16),
     decoration: _panelDecoration(),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(children: [Expanded(child: Text(label, style: const TextStyle(fontWeight: FontWeight.w900))), Text(value, style: TextStyle(color: color, fontWeight: FontWeight.w900))]),
-      const SizedBox(height: 12),
-      ClipRRect(borderRadius: BorderRadius.circular(99), child: LinearProgressIndicator(value: progress, minHeight: 9, color: color, backgroundColor: const Color(0xFF293032))),
-    ]),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                style: const TextStyle(fontWeight: FontWeight.w900),
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(color: color, fontWeight: FontWeight.w900),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(99),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 9,
+            color: color,
+            backgroundColor: const Color(0xFF293032),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
